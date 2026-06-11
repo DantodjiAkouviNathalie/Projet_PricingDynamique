@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  api:
+    build: .
+    container_name: pricing_api
+    ports:
+      - '8000:8000'
+    command: uvicorn api_service:app --host 0.0.0.0 --port 8000
+    restart: unless-stopped
+
+  streamlit:
+    build: .
+    container_name: pricing_streamlit
+    ports:
+      - '8501:8501'
+    command: streamlit run simulateur_web.py --server.port 8501 --server.headless true --server.enableCORS false
+    restart: unless-stopped
